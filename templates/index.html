@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Downloader</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .btn-delete {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Download from Youtube and convert to MP3</h1><br>
+<h6>Specify a Youtube URL or a Youtube Playlist URL</h6>
+    <div class="container mt-4">
+        <form action="/download" method="POST">
+            <input type="text" name="url" placeholder="Enter URL">
+            <label><input type="checkbox" name="convert"> Convert to MP3</label>
+            <button type="submit" class="btn btn-primary mt-2">Download</button>
+        </form>
+
+        <form action="/delete_files" method="POST">
+            <button type="submit" class="btn btn-danger btn-delete">Delete Downloaded Files</button>
+        </form>
+
+        <hr>
+
+        <h3>Downloaded Files:</h3>
+        <ul>
+            {% for file in files %}
+            <li><a href="{{ url_for('files', filename=file) }}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
