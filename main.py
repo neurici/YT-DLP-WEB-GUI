@@ -7,8 +7,8 @@ import json
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Needed for flashing messages
 
-DOWNLOAD_FOLDER = 'downloads'
-FILES_LIST = 'downloaded_files.json'
+DOWNLOAD_FOLDER = 'downloads' # The folder where the webm and mp3 files will be downloaded (after conversion)
+FILES_LIST = 'downloaded_files.json' # The json file where the names of the downloaded files are saved, so you will have a history of what you downloaded
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 downloaded_files = []
 
@@ -89,7 +89,7 @@ def download():
 @app.route('/delete_files', methods=['POST'])
 def delete_files():
     delete_all_files()
-    flash('Fișierele au fost șterse cu succes!', 'success')
+    flash('Files deleted successfully!', 'success')
     return redirect(url_for('index'))
 
 @app.route('/files/<path:filename>')
@@ -107,4 +107,4 @@ def files(filename):
 
 if __name__ == '__main__':
     load_downloaded_files()  # Load the list when the app starts
-    app.run(host='0.0.0.0', port = 13000, debug=True)
+    app.run(host='0.0.0.0', port = 5000, debug=True) #here you set the host and port on which you can access the web page, set 0.0.0.0, if the script is installed on a server in the LAN network, if the script is installed on a PC / laptop then set the host 127.0.0.1, and for the port, set what you want or what port you have, unused
