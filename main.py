@@ -14,7 +14,7 @@ downloaded_files = []
 
 # Function to save downloaded files list to a JSON file
 def save_downloaded_files():
-    with open(FILES_LIST, 'w') as f:
+    with open(FILES_LIST, 'w') as f: #the file will be created if it does not exist
         json.dump(downloaded_files, f)
 
 # Function to load downloaded files list from a JSON file
